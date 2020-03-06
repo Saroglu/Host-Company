@@ -32,16 +32,12 @@
                     <a class="nav-link" href="@Url.Action("Index","Home")">Anasayfa <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hosting Listesi</a>
+                    <a class="nav-link" href="@Url.Action("UrunListele","Home")">Hosting Listesi</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Hosting Tanımla</a>
+                    <a class="nav-link" data-target="#myModal" data-toggle="modal" href="#myModal">Hosting Tanımla</a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search">
-                <button class="btn btn-warning my-2 my-sm-0" type="submit">Ara</button>
-            </form>
         </div>
     </nav>
 
@@ -64,5 +60,91 @@
 
     </footer>
     <!-- Footer -->
+    <!-- Modal -->
+    <div class="modal fade bd-example-modal-lg" id="myModal">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">HOSTING TANIMLA</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form id="myForm" class="text-center border border-light p-5" action="/Home/Create" method="post">
+
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <label class="float-left">Domain Adı:</label>
+                                <input type="text" id="domainAdi" class="form-control" placeholder="Domain adı giriniz">
+                            </div>
+                            <div class="col">
+                                <label class="float-left">Panel ve FTP Bilgileri</label>
+                                <textarea type="text" id="panelVeFtp" class="form-control" placeholder="Panel ve FTP Bilgileri"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <label class="float-left">Domain Başlangıç Tarihi:</label>
+                                <input type="datetime" id="domainBaslangic" class="form-control" placeholder="Domain başlangıç tarihi giriniz">
+              
+                            </div>
+                            <div class="col">
+                                <label class="float-left">Hosting Başlangıç Tarihi:</label>
+                                <input type="datetime" id="hostingBaslangic" class="form-control" placeholder="Hosting başlangıç tarihi giriniz">
+         
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <label class="float-left">Domain Bitiş Tarihi:</label>
+                                <input type="datetime" id="domainBitis" class="form-control" placeholder="Domain bitiş tarihi giriniz">
+    
+                            </div>
+                            <div class="col">
+                                <label class="float-left">Hosting Bitiş Tarihi:</label>
+                                <input type="datetime" id="hostingBitis" class="form-control" placeholder="Hosting bitiş tarihi giriniz">
+                            </div>
+                        </div>
+                        <div class="form-row mb-4">
+                            <div class="col">
+                                <label class="float-left">Müşteri Adı:</label>
+                                <input type="text" id="musteri" class="form-control" placeholder="Müşteri Adı Giriniz">
+                            </div>
+                            <div class="col">
+                                <label class="float-left">Bayi Adı:</label>
+                                <input type="text" id="bayi" class="form-control" placeholder="Bayi Adı Giriniz">
+                            </div>
+                        </div>
+                        <div class="float-right">
+                            <button type="submit" id="btnSave" class="btn btn-primary"><i class="far fa-envelope"></i> Kaydet</button>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#myForm").submit(function (e) {
+
+                e.preventDefault(); // avoid to execute the actual submit of the form.
+
+                var form = $(this);
+                var url = form.attr('action');
+
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: form.serialize(), // serializes the form's elements.
+                    success: function (data) {
+                        alert(data); // show response from the php script.
+                    }
+                });
+
+
+            });
+        });
+
+    </script>
 </body>
 </html>

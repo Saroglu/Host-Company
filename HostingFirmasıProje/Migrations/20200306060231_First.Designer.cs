@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostingFirmasıProje.Migrations
 {
     [DbContext(typeof(HostingDbContext))]
-    [Migration("20200305055748_First")]
+    [Migration("20200306060231_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,8 +27,7 @@ namespace HostingFirmasıProje.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BayiAdi")
-                        .IsRequired();
+                    b.Property<string>("BayiAdi");
 
                     b.HasKey("Id");
 
@@ -43,8 +42,7 @@ namespace HostingFirmasıProje.Migrations
 
                     b.Property<int>("BayiId");
 
-                    b.Property<string>("MusteriAdi")
-                        .IsRequired();
+                    b.Property<string>("MusteriAdi");
 
                     b.HasKey("Id");
 
@@ -59,25 +57,22 @@ namespace HostingFirmasıProje.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("BayiAdi")
-                        .IsRequired();
+                    b.Property<string>("BayiAdi");
 
-                    b.Property<string>("DomainAdi")
-                        .IsRequired();
+                    b.Property<string>("DomainAdi");
 
                     b.Property<DateTime>("DomainBasTarihi");
 
-                    b.Property<DateTime?>("DomainBitisTarihi")
-                        .IsRequired();
+                    b.Property<DateTime?>("DomainBitisTarihi");
 
                     b.Property<DateTime>("HostingBasTarihi");
 
-                    b.Property<DateTime?>("HostingBitisTarihi")
-                        .IsRequired();
+                    b.Property<DateTime>("HostingBitisTarihi");
 
                     b.Property<int?>("Kalan");
 
-                    b.Property<int>("MusteriId");
+                    b.Property<int?>("MusteriId")
+                        .IsRequired();
 
                     b.Property<string>("PanelFtpBilgi");
 

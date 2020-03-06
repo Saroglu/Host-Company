@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace HostingFirmasıProje.Configuration
 {
-    public class MusteriConfigConfiguration : IEntityTypeConfiguration<Musteri>
+    public class BayiConfigConfiguration : IEntityTypeConfiguration<Bayi>
     {
-        public void Configure(EntityTypeBuilder<Musteri> builder)
+        public void Configure(EntityTypeBuilder<Bayi> builder)
         {
-            builder.HasOne<Bayi>(x => x.Bayi)
-                .WithMany(c => c.Musteriler)
+            builder.HasMany<Musteri>(x => x.Musteriler)
+                .WithOne(c => c.Bayi)
                 .OnDelete(DeleteBehavior.Restrict)
                 .IsRequired();
         }

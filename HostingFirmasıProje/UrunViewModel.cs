@@ -9,30 +9,25 @@ namespace HostingFirmasıProje
 {
     public class UrunViewModel
     {
-        public int Id { get; set; }
-
-        [Required]
         public string DomainAdi { get; set; }
 
-        public int MusteriId { get; set; }
+        public int? MusteriId { get; set; }
 
         public DateTime DomainBasTarihi { get; set; }
 
-        [Required]
-        public DateTime? DomainBitisTarihi { get; set; }
+        public DateTime DomainBitisTarihi { get; set; }
 
         public string PanelFtpBilgi { get; set; }
 
         public DateTime HostingBasTarihi { get; set; }
 
+        public DateTime HostingBitisTarihi { get; set; }
+
         public int? Kalan { get; set; }
 
-        [Required]
-        public DateTime? HostingBitisTarihi { get; set; }
-
-        [Required]
         public string BayiAdi { get; set; }
 
+        public virtual Musteri Musteri { get; set; }
 
     }
 }

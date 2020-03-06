@@ -14,7 +14,7 @@ namespace HostingFirmasıProje.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    BayiAdi = table.Column<string>(nullable: false)
+                    BayiAdi = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -27,7 +27,7 @@ namespace HostingFirmasıProje.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    MusteriAdi = table.Column<string>(nullable: false),
+                    MusteriAdi = table.Column<string>(nullable: true),
                     BayiId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -47,15 +47,15 @@ namespace HostingFirmasıProje.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    DomainAdi = table.Column<string>(nullable: false),
+                    DomainAdi = table.Column<string>(nullable: true),
                     MusteriId = table.Column<int>(nullable: false),
                     DomainBasTarihi = table.Column<DateTime>(nullable: false),
-                    DomainBitisTarihi = table.Column<DateTime>(nullable: false),
+                    DomainBitisTarihi = table.Column<DateTime>(nullable: true),
                     PanelFtpBilgi = table.Column<string>(nullable: true),
                     HostingBasTarihi = table.Column<DateTime>(nullable: false),
                     HostingBitisTarihi = table.Column<DateTime>(nullable: false),
                     Kalan = table.Column<int>(nullable: true),
-                    BayiAdi = table.Column<string>(nullable: false)
+                    BayiAdi = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

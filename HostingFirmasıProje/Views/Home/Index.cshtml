@@ -3,6 +3,8 @@
     ViewData["Title"] = "Index";
 }
 
+    <h2 class="text-center text-dark">Son 15 Gün İçinde Süresi Dolan Ürünler</h2>
+
 <div class="card">
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -10,60 +12,36 @@
                 <tr>
                     <th>Domain Adı</th>
                     <th>Bayi</th>
-                    <th>Kalan Gün Sayısı</th>
                     <th>Müşteri Adı</th>
+                    <th>Kalan Gün Sayısı</th>
                 </tr>
             </thead>
             <tbody>
-
 
                 @foreach (var item in Model)
                 {
                     <tr>
                         <td>@item.DomainAdi</td>
                         <td>@item.BayiAdi</td>
+                        <td>@item.Musteri.MusteriAdi</td>
                         <td>@item.Kalan</td>
-                        <td>@item.MusteriId</td>
 
                     </tr>
                 }
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Domain Adı</th>
+                        <th>Bayi</th>
+                        <th>Müşteri Adı</th>
+                        <th>Kalan Gün Sayısı</th>
 
-
-            </tbody>
-            <tfoot>
-                <tr>
-                    <th>Domain Adı</th>
-                    <th>Bayi</th>
-                    <th>Kalan Gün Sayısı</th>
-                    <th>Müşteri Adı</th>
-
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-    <!-- /.card-body -->
-</div>
-<!-- /.card -->
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Silme Onayı</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input type="hidden" id="modalCustomerId" />
-                <span id="modalCustomerName"></span> müşteriyi silmek istediğinize emin misiniz?
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
-                <button type="button" class="btn btn-danger" id="modalButtonDelete">Sil</button>
-            </div>
+                    </tr>
+                </tfoot>
+            </table>
         </div>
+        <!-- /.card-body -->
     </div>
-</div>
-
+    <!-- /.card -->
+   
 

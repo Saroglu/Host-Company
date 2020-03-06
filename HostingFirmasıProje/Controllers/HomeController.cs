@@ -9,6 +9,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using HostingFirmasıProje.Data;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace HostingFirmasıProje.Controllers
 {
@@ -28,23 +29,14 @@ namespace HostingFirmasıProje.Controllers
             foreach (var item in urunler)
             {
 
-                TimeSpan kalanGun = ((item.HostingBitisTarihi).GetValueOrDefault()).Subtract(DateTime.Now);
+                TimeSpan kalanGun = ((item.DomainBitisTarihi).GetValueOrDefault()).Subtract(DateTime.Now);
                 int kalan = (int)kalanGun.TotalDays;
 
                 kalanGunList.Add(kalan);
 
-
             }
-            ViewBag.Urunler = _context.Urunler;
 
-            List<string> musteriList = new List<string>();
-            musteriList= _context.Urunler.Where(c => c.Kalan < 16).OrderBy(c=> c.Kalan)
-                .Select(b => b.Musteri.MusteriAdi).ToList();
-            //ViewBag.MusteriAdlari = musteriList;
-            //ViewBag.MusteriSayisi = musteriList.Count();
-
-
-            return View(_context.Urunler.Where(c=> c.Kalan < 16).OrderBy(i =>i.Kalan).ToList());
+            return View(_context.Urunler.Include("Musteri").Where(c => c.Kalan < 16).OrderBy(i => i.Kalan).ToList());
         }
 
         protected HostingDbContext _context;
@@ -61,75 +53,156 @@ namespace HostingFirmasıProje.Controllers
             _context = context;
         }
 
-        [Authorize]
-        public ActionResult New()
+        public ActionResult UrunListele()
         {
-            ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
-            return View("Edit", new UrunViewModel());
+            return View(_context.Urunler.ToList());
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult New(UrunViewModel model)
+        public ActionResult Create(Bayi bayi, Musteri musteri,
+            int id, int? musteriId, string domainAdi, string bayiAdi, DateTime domainBastarihi,
+            DateTime domainBitisTarihi, DateTime hostingBasTarihi, DateTime hostingBitisTarihi, string panelveFtp)
         {
             if (ModelState.IsValid)
             {
+                Bayi bayiYeni = new Bayi
+                {
+                    Id=bayi.Id,
+                    BayiAdi=bayi.BayiAdi
+                };
+                _context.Bayiler.Add(bayiYeni);
+
+                Musteri musteriYeni = new Musteri
+                {
+                    Id = musteri.Id,
+                    MusteriAdi = musteri.MusteriAdi,
+                    BayiId=musteri.BayiId
+                };
+
+                _context.Musteriler.Add(musteriYeni);
+
                 Urun urun = new Urun
                 {
-
+                    Id = id,
+                    MusteriId=musteriId,
+                    DomainAdi = domainAdi,
+                    BayiAdi = bayiAdi,
+                    DomainBasTarihi = domainBastarihi,
+                    DomainBitisTarihi = domainBitisTarihi,
+                    HostingBasTarihi = hostingBasTarihi,
+                    HostingBitisTarihi = hostingBitisTarihi,
+                    PanelFtpBilgi = panelveFtp
                 };
                 _context.Urunler.Add(urun);
                 _context.SaveChanges();
-
                 return RedirectToAction("Index");
             }
-            ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
-            return View("Edit", new UrunViewModel());
+
+            return View("UrunListele");
         }
 
-        [Authorize]
-        public ActionResult Edit(int id)
-        {
-            ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id", "Name", "Surname");
 
-            UrunViewModel vm = _context.Urunler.Select(x => new UrunViewModel
-            {
-                Id = x.Id,
-                BayiAdi = x.BayiAdi,
-                DomainAdi = x.DomainAdi,
-                DomainBasTarihi = x.DomainBasTarihi,
-                DomainBitisTarihi = x.DomainBitisTarihi,
-                HostingBasTarihi = x.HostingBasTarihi,
-                HostingBitisTarihi = x.HostingBitisTarihi,
-                MusteriId = x.MusteriId,
-                PanelFtpBilgi = x.PanelFtpBilgi
 
-            }).FirstOrDefault(x => x.Id == id);
 
-            return View(vm);
-        }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(UrunViewModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                Urun urun = _context.Urunler.Find(model.Id);
-                urun.DomainAdi = model.DomainAdi;
-                urun.BayiAdi = model.BayiAdi;
-                urun.HostingBasTarihi = model.HostingBasTarihi;
-                urun.HostingBitisTarihi = model.HostingBitisTarihi;
-                urun.DomainBasTarihi = model.DomainBasTarihi;
-                urun.DomainBitisTarihi = model.DomainBitisTarihi;
-                urun.MusteriId = model.MusteriId;
-                urun.PanelFtpBilgi = model.PanelFtpBilgi;
 
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
-            return View();
-        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        //[Authorize]
+        //public ActionResult New()
+        //{
+        //    ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
+        //    return View(");
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult New(UrunViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Urun urun = new Urun
+        //        {
+        //            Id=model.Id,
+        //            BayiAdi= model.BayiAdi,
+        //            DomainAdi=model.DomainAdi,
+        //            DomainBasTarihi=model.DomainBasTarihi,
+        //            DomainBitisTarihi=model.DomainBitisTarihi,
+        //            HostingBasTarihi=model.HostingBasTarihi,
+        //            HostingBitisTarihi=model.HostingBitisTarihi,
+        //            MusteriId=model.MusteriId,
+        //            Kalan=model.Kalan,
+        //            PanelFtpBilgi=model.PanelFtpBilgi
+        //        };
+        //        _context.Urunler.Add(urun);
+        //        _context.SaveChanges();
+
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
+        //    return View("Edit", new UrunViewModel());
+        //}
+
+        //[Authorize]
+        //public ActionResult Edit(int id)
+        //{
+        //    ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
+
+        //    UrunViewModel vm = _context.Urunler.Select(x => new UrunViewModel
+        //    {
+        //        Id = x.Id,
+        //        BayiAdi = x.BayiAdi,
+        //        DomainAdi = x.DomainAdi,
+        //        DomainBasTarihi = x.DomainBasTarihi,
+        //        DomainBitisTarihi = x.DomainBitisTarihi,
+        //        HostingBasTarihi = x.HostingBasTarihi,
+        //        HostingBitisTarihi = x.HostingBitisTarihi,
+        //        MusteriId = x.MusteriId,
+        //        PanelFtpBilgi = x.PanelFtpBilgi
+
+        //    }).FirstOrDefault(x => x.Id == id);
+
+        //    return View(vm);
+        //}
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Edit(UrunViewModel model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Urun urun = _context.Urunler.Find(model.Id);
+        //        urun.DomainAdi = model.DomainAdi;
+        //        urun.BayiAdi = model.BayiAdi;
+        //        urun.HostingBasTarihi = model.HostingBasTarihi;
+        //        urun.HostingBitisTarihi = model.HostingBitisTarihi;
+        //        urun.DomainBasTarihi = model.DomainBasTarihi;
+        //        urun.DomainBitisTarihi = model.DomainBitisTarihi;
+        //        urun.MusteriId = model.MusteriId;
+        //        urun.PanelFtpBilgi = model.PanelFtpBilgi;
+
+        //        _context.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
+        //    ViewBag.Id = new SelectList(_context.Urunler.ToList(), "Id");
+        //    return View();
+        //}
     }
 }

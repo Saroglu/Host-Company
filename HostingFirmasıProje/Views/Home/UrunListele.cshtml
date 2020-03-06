@@ -1,0 +1,62 @@
+﻿@model List<Urun>
+@{
+    ViewData["Title"] = "Urun Listele";
+}
+
+<div class="card">
+    <div class="card-header">
+        <input id="myInput" type="text" placeholder="Search..">
+    </div>
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Domain Adı</th>
+                    <th>Bayi</th>
+                    <th>DBT*</th>
+                    <th>DBS*</th>
+                    <th>HBT*</th>
+                    <th>HBS*</th>
+                </tr>
+            </thead>
+            <tbody id="myTable">
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.DomainAdi</td>
+                        <td>@item.BayiAdi</td>
+                        <td>@item.DomainBasTarihi</td>
+                        <td>@item.DomainBitisTarihi</td>
+                        <td>@item.HostingBasTarihi</td>
+                        <td>@item.HostingBitisTarihi</td>
+                    </tr>
+                }
+
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>Domain Adı</th>
+                    <th>Bayi</th>
+                    <th>DBT*</th>
+                    <th>DBS*</th>
+                    <th>HBT*</th>
+                    <th>HBS*</th>
+
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+<script>
+    $(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
