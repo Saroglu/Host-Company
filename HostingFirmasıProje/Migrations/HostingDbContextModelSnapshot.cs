@@ -59,13 +59,13 @@ namespace HostingFirmasıProje.Migrations
 
                     b.Property<string>("DomainAdi");
 
-                    b.Property<DateTime>("DomainBasTarihi");
+                    b.Property<DateTime?>("DomainBasTarihi");
 
                     b.Property<DateTime?>("DomainBitisTarihi");
 
-                    b.Property<DateTime>("HostingBasTarihi");
+                    b.Property<DateTime?>("HostingBasTarihi");
 
-                    b.Property<DateTime>("HostingBitisTarihi");
+                    b.Property<DateTime?>("HostingBitisTarihi");
 
                     b.Property<int?>("Kalan");
 

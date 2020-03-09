@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-header">
-        <input id="myInput" type="text" placeholder="Search..">
+        <input class="d-inline-block" id="myInput" type="text" placeholder="Search..">
     </div>
     <div class="card-body">
         <table id="example1" class="table table-bordered table-striped">
@@ -13,10 +13,11 @@
                 <tr>
                     <th>Domain Adı</th>
                     <th>Bayi</th>
-                    <th>DBT*</th>
-                    <th>DBS*</th>
-                    <th>HBT*</th>
-                    <th>HBS*</th>
+                    <th class="date">DBT*</th>
+                    <th class="date">DBS*</th>
+                    <th class="date">HBS*</th>
+                    <th class="date">HBT*</th>
+                  
                 </tr>
             </thead>
             <tbody id="myTable">
@@ -51,12 +52,12 @@
 </div>
 <!-- /.card -->
 <script>
-    $(document).ready(function(){
-  $("#myInput").on("keyup", function() {
-    var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    $(document).ready(function () {
+        $("#myInput").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
     });
-  });
-});
 </script>

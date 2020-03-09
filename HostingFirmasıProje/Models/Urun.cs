@@ -12,17 +12,18 @@ namespace HostingFirmasıProje.Models
         public string DomainAdi { get; set; }
 
         [ForeignKey("Musteri")]
+        [Required]
         public int? MusteriId { get; set; }
 
-        public DateTime DomainBasTarihi { get; set; }
+        public DateTime? DomainBasTarihi { get; set; }
 
         public DateTime? DomainBitisTarihi { get; set; }
 
         public string PanelFtpBilgi { get; set; }
 
-        public DateTime HostingBasTarihi { get; set; }
+        public DateTime? HostingBasTarihi { get; set; }
 
-        public DateTime HostingBitisTarihi { get; set; }
+        public DateTime? HostingBitisTarihi { get; set; }
 
         public int? Kalan { get; set; }
 

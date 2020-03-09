@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HostingFirmasıProje.Migrations
 {
     [DbContext(typeof(HostingDbContext))]
-    [Migration("20200306060231_First")]
+    [Migration("20200306111402_First")]
     partial class First
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -61,13 +61,13 @@ namespace HostingFirmasıProje.Migrations
 
                     b.Property<string>("DomainAdi");
 
-                    b.Property<DateTime>("DomainBasTarihi");
+                    b.Property<DateTime?>("DomainBasTarihi");
 
                     b.Property<DateTime?>("DomainBitisTarihi");
 
-                    b.Property<DateTime>("HostingBasTarihi");
+                    b.Property<DateTime?>("HostingBasTarihi");
 
-                    b.Property<DateTime>("HostingBitisTarihi");
+                    b.Property<DateTime?>("HostingBitisTarihi");
 
                     b.Property<int?>("Kalan");
 

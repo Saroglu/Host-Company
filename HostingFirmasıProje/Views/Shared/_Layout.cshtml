@@ -14,6 +14,9 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
 </head>
@@ -74,45 +77,49 @@
                         <div class="form-row mb-4">
                             <div class="col">
                                 <label class="float-left">Domain Adı:</label>
-                                <input type="text" id="domainAdi" class="form-control" placeholder="Domain adı giriniz">
+                                <input type="text" id="domainAdi" name="domainAdi" class="form-control" placeholder="Domain adı giriniz" required>
                             </div>
                             <div class="col">
                                 <label class="float-left">Panel ve FTP Bilgileri</label>
-                                <textarea type="text" id="panelVeFtp" class="form-control" placeholder="Panel ve FTP Bilgileri"></textarea>
+                                <textarea type="text" id="panelVeFtp" name="panelVeFtp" class="form-control" placeholder="Panel ve FTP Bilgileri"></textarea>
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col">
                                 <label class="float-left">Domain Başlangıç Tarihi:</label>
-                                <input type="datetime" id="domainBaslangic" class="form-control" placeholder="Domain başlangıç tarihi giriniz">
-              
+                                <input type="datetime" id="domainBaslangic " name="domainBasTarihi" class="form-control" placeholder="Domain başlangıç tarihi giriniz">
+
                             </div>
                             <div class="col">
                                 <label class="float-left">Hosting Başlangıç Tarihi:</label>
-                                <input type="datetime" id="hostingBaslangic" class="form-control" placeholder="Hosting başlangıç tarihi giriniz">
-         
+                                <input type="datetime" id="hostingBaslangic" name="hostingBasTarihi" class="form-control" placeholder="Hosting başlangıç tarihi giriniz">
+
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col">
                                 <label class="float-left">Domain Bitiş Tarihi:</label>
-                                <input type="datetime" id="domainBitis" class="form-control" placeholder="Domain bitiş tarihi giriniz">
-    
+                                <input type="datetime" id="domainBitis" name="domainBitisTarihi" class="form-control" placeholder="Domain bitiş tarihi giriniz" required>
+
                             </div>
                             <div class="col">
                                 <label class="float-left">Hosting Bitiş Tarihi:</label>
-                                <input type="datetime" id="hostingBitis" class="form-control" placeholder="Hosting bitiş tarihi giriniz">
+                                <input type="datetime" id="hostingBitis" name="hostingBitisTarihi" class="form-control" placeholder="Hosting bitiş tarihi giriniz" required>
                             </div>
                         </div>
                         <div class="form-row mb-4">
                             <div class="col">
                                 <label class="float-left">Müşteri Adı:</label>
-                                <input type="text" id="musteri" class="form-control" placeholder="Müşteri Adı Giriniz">
+                                <input type="text" id="musteri" name="musteriAdi" class="form-control" placeholder="Müşteri Adı Giriniz" required>
                             </div>
                             <div class="col">
                                 <label class="float-left">Bayi Adı:</label>
-                                <input type="text" id="bayi" class="form-control" placeholder="Bayi Adı Giriniz">
+                                <input type="text" name="bayiAdi" id="bayi" class="form-control" placeholder="Bayi Adı Giriniz" required>
                             </div>
+                            <input id="MusteriId"
+                                   name="MusteriId"
+                                   type="hidden"
+                                   value="1" />
                         </div>
                         <div class="float-right">
                             <button type="submit" id="btnSave" class="btn btn-primary"><i class="far fa-envelope"></i> Kaydet</button>
@@ -124,6 +131,7 @@
         </div>
     </div>
     <script>
+
         $(document).ready(function () {
             $("#myForm").submit(function (e) {
 
@@ -137,11 +145,9 @@
                     url: url,
                     data: form.serialize(), // serializes the form's elements.
                     success: function (data) {
-                        alert(data); // show response from the php script.
                     }
+                    $("#exampleModal").modal("hide");
                 });
-
-
             });
         });
 
